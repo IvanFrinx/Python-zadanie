@@ -1,7 +1,7 @@
 {
     "frinx-uniconfig-topology:configuration": {
         "openconfig-lldp:lldp": {
-            "ntierfaces": {
+            "interfaces": {
                 "interface": [
                     {
                         "name": "TenGigabitEthernet0/0/3",

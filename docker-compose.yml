@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - backend
+
+  policy:
+    image: policy:latest
+    depends_on:
+      - db
+    networks:
+      - backend
+
+networks:
+  backend:
