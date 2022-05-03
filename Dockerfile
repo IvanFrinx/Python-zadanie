@@ -1,6 +1,6 @@
 FROM python:3.9-buster
 
-# Install python 3.8 + pip
+# Install python 3.9 + pip
 RUN apt-get update && apt install -y python3-pip
 RUN python3 --version
 RUN pip3 --version
