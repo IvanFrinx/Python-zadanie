@@ -29,6 +29,7 @@ if __name__ == '__main__':
 
     connection = psycopg2.connect(**db)
     cursor = connection.cursor()
+    print('point1')
 
     create_table = ''' CREATE TABLE IF NOT EXISTS interfaces (
                             id SERIAL PRIMARY KEY,
@@ -39,7 +40,7 @@ if __name__ == '__main__':
                             type VARCHAR(50),
                             infra_type VARCHAR(50),
                             port_channel_id INTEGER,
-                            max_frame_size INTEGER '''
+                            max_frame_size INTEGER) '''
 
     cursor.execute(create_table)
 
