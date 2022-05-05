@@ -12,4 +12,4 @@ RUN pip3 install -r requirements.txt
 COPY docker /home/app
 WORKDIR /home/app
 
-ENTRYPOINT [ "python3", "main.py" ]
+ENTRYPOINT ["python", "main.py"]

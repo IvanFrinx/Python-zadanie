@@ -42,7 +42,7 @@ if __name__ == '__main__':
                 i['config']['description'] = None
             if 'mtu' not in i['config'].keys():
                 i['config']['mtu'] = None
-            interf = interface(i["name"], i["config"], i['config']['description'],i['config']['mtu'])
+            interf = interface(i["name"], json.dumps(i["config"]), i['config']['description'],i['config']['mtu'])
             print(interf.name)
             print(interf.config)
             print(interf.description)
@@ -67,10 +67,10 @@ if __name__ == '__main__':
 
     cursor.execute(create_table)
 
-    insert_into_tables_values = 'INSERT INTO interfaces (name, config, description, mtu) VALUES (%s %s %s %s)'
+    insert_into_tables_values = 'INSERT INTO interfaces (name, config, description, mtu) VALUES (%s, %s, %s, %s)'
 
     for obj in objects:
-        cursor.execute(insert_into_tables_values, obj.attributes())
+        cursor.execute(insert_into_tables_values, (obj.name, obj.config, obj.description, obj.mtu))
 
     connection.commit()
     cursor.close()
