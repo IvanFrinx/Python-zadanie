@@ -1,15 +1,13 @@
 import json
 import classdata
 
+frinx = 'frinx-uniconfig-topology:configuration'
+native = 'Cisco-IOS-XE-native:native'
 
 def load_json(json_file):
     with open(json_file) as f:
         data = json.load(f)
     return data
-
-
-frinx = 'frinx-uniconfig-topology:configuration'
-native = 'Cisco-IOS-XE-native:native'
 
 
 def extract_data(data):
