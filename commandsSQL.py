@@ -18,7 +18,7 @@ create_table = ''' CREATE TABLE IF NOT EXISTS interfaces (
                             max_frame_size INTEGER) '''
 
 insert_into_tables_values = 'INSERT INTO interfaces ' \
-                            '(name, config, description, mtu) VALUES (%s, %s, %s, %s)'
+                            '(name, config, description, max_frame_size) VALUES (%s, %s, %s, %s)'
 
 
 def magic_sql(objects):

@@ -1,3 +1,4 @@
+from distutils.command.config import config
 import json
 import classdata
 
@@ -12,8 +13,7 @@ frinx = 'frinx-uniconfig-topology:configuration'
 interfaces = "openconfig-interfaces:interfaces"
 
 
-def extract_data():
-    data = load_json('configClear_v2.json')
+def extract_data(data):
     objects = list()
     for i in data[frinx][interfaces]['interface']:
         if 'Loopback' not in i['name']:
@@ -25,8 +25,17 @@ def extract_data():
                 mtu = int(i['config']['mtu'])
             interface = classdata.Interface(i["name"], json.dumps(i["config"]),
                                             i['config']['description'], mtu)
-            objects.append(interface)
-    return objects
+        objects.append(interface)
+    # mtu = None                                                        |
+    # config = None                                                     |
+    # for i in data['frinx-uniconfig-topology:configuration'] \         |     
+    # ["Cisco-IOS-XE-native:native"]['interface']['BDI']:               |
+    #     if "description" not in i.keys():                             |    for BDI
+    #         i['description'] = None                                   |
+    #     interface = classdata.Interface(i["name"], config,            |
+    #                                         i['description'], mtu)    |
+    #     objects.append(interface)                                     |      
+    # return objects                                                    |
 
         # for i in data[frinx]['Cisco-IOS-XE-native:native']['interface']:
         #     for i in data[frinx]['Cisco-IOS-XE-native:native']['interface'][i]:
