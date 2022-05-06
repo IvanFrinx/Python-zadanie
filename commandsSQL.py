@@ -18,16 +18,17 @@ create_table = ''' CREATE TABLE IF NOT EXISTS interfaces (
                             max_frame_size INTEGER) '''
 
 insert_into_tables_values = 'INSERT INTO interfaces ' \
-                            '(name, config, description, max_frame_size) VALUES (%s, %s, %s, %s)'
+                            '(name, description, config, max_frame_size) VALUES (%s, %s, %s, %s)'
 
+# Remove if statment to include BDIs and Loopbacks
 
 def magic_sql(objects):
     connection = psycopg2.connect(**db)
     cursor = connection.cursor()
     cursor.execute(create_table)
     for obj in objects:
-        cursor.execute(insert_into_tables_values,
-                       (obj.name, obj.config, obj.description, obj.mtu))
+        if 'BDI' not in obj.name and 'Loopback' not in obj.name: # Remove if statment to include
+            cursor.execute(insert_into_tables_values, obj.attributes())
     connection.commit()
     cursor.close()
     connection.close()

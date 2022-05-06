@@ -1,9 +1,9 @@
 class Interface:
-    def __init__(self, name, config, description, mtu):
+    def __init__(self, name, description, config, mtu):
         self.name = name
-        self.config = config
         self.description = description
+        self.config = config
         self.mtu = mtu
 
     def attributes(self):
-        return self.name, self.config, self.description, self.mtu
+        return self.name, self.description, self.config, self.mtu
