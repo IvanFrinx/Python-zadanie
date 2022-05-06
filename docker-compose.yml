@@ -1,14 +1,14 @@
-version: '3'
+version: '3.8'
 services:
   db:
-    image: 'postgres:latest'
-    expose:
-      - "5432"
-    environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-  aprrka:
+    image: postgres:13
     restart: always
-    build: .
-    depends_on:
-      - db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - backend
+networks:
+  backend:
