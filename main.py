@@ -18,13 +18,14 @@ if __name__ == '__main__':
     # Parsing data into created table
     commandsSQL.parse_data(objects, connection, cursor)
 
+    # Getting ids from Port_channels
     ports_id = commandsSQL.get_port_ids(cursor)
-
+    
+    # Links port ids with interfaces
     links = jsondata.link_ports(objects, ports_id)
-
+    
+    # Updating port_channel_id column
     commandsSQL.update_col_port(connection, cursor, links)
-
-
 
     # Closing connection to database
     commandsSQL.close_connection(connection, cursor)
