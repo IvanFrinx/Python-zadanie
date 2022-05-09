@@ -20,8 +20,20 @@ create_table_string = ''' CREATE TABLE IF NOT EXISTS interfaces (
                                 max_frame_size INTEGER) '''
 
 
-insert_into_tables_values = 'INSERT INTO interfaces ' \
-                            '(name, description, config, max_frame_size) VALUES (%s, %s, %s, %s)'
+insert_into_tables_values = '''INSERT INTO interfaces
+                               (name, description, config, max_frame_size)
+                               VALUES (%s, %s, %s, %s)'''
+
+
+get_port_ids_str =  """SELECT id, name 
+                       FROM interfaces 
+                       WHERE name 
+                       LIKE 'Port-channel%'"""    
+
+
+udpate_port_channel_id = """UPDATE interfaces
+                            SET port_channel_id=%s 
+                            WHERE name=%s"""                               
 
 
 def connect_to_db():
@@ -40,11 +52,31 @@ def close_connection(connection, cursor):
     connection.close()
 
 
-# To include BDIs and Loopbacks remove if statment (line 48) and back-tab line 49
+def skip_BDI_and_Loops(objects):
+    objs = list()
+    for obj in objects:
+        if 'Loopback' not in obj.name and "BDI" not in obj.name:
+            objs.append(obj)
+    return objs        
+
 
 
 def parse_data(objects, connection, cursor):
+    objects = skip_BDI_and_Loops(objects) # <== Comment line to include Loobacks and BDIs 
     for obj in objects:
-        if 'BDI' not in obj.name and 'Loopback' not in obj.name:  # <=== Optional
-            cursor.execute(insert_into_tables_values, obj.attributes())
+        cursor.execute(insert_into_tables_values, obj.attributes())
+    connection.commit()
+
+def get_port_ids(cursor):
+    cursor.execute(get_port_ids_str)
+    ids = cursor.fetchall()
+    ids_dict = dict()
+    for i in ids:
+        ids_dict[int(i[1].lstrip('Port-channel'))] = i[0]
+    return ids_dict
+         
+
+def update_col_port(connection, cursor, links):
+    for link, port in links.items():
+        cursor.execute(udpate_port_channel_id, (port, link)) 
     connection.commit()
