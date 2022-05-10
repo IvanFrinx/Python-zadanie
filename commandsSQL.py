@@ -14,13 +14,16 @@ def connect_to_db():
         print('Connected!')
         return connection, cursor
 
+
 def create_table(cursor):
     cursor.execute(database_scripts.create_table_string)
+
 
 def close_connection(connection, cursor):
     connection.commit()
     cursor.close()
     connection.close()
+
 
 def skip_bdi_and_loops(objects):
     objs = list()
@@ -29,10 +32,12 @@ def skip_bdi_and_loops(objects):
             objs.append(obj)
     return objs        
 
+
 def parse_data(objects, cursor):
     objects = skip_bdi_and_loops(objects) # <== Comment line to include Loopbacks and BDIs
     for obj in objects:
         cursor.execute(database_scripts.insert_into_tables_values, obj.attributes())
+
 
 def get_port_ids(cursor):
     cursor.execute(database_scripts.get_port_ids_str)
@@ -42,6 +47,8 @@ def get_port_ids(cursor):
         ids_dict[int(i[1].lstrip('Port-channel'))] = i[0]
     return ids_dict
 
+
 def update_col_port(cursor, links):
     for link, port in links.items():
         cursor.execute(database_scripts.update_port_channel_id, (port, link))
+        

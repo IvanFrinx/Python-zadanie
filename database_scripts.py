@@ -22,12 +22,13 @@ insert_into_tables_values = """INSERT INTO interfaces
                                VALUES (%s, %s, %s, %s)"""
 
 
-get_port_ids_str = """SELECT id, name 
-                       FROM interfaces 
-                       WHERE name 
-                       LIKE 'Port-channel%'"""   
+get_port_ids_str = """SELECT id, name
+                       FROM interfaces
+                       WHERE name
+                       LIKE 'Port-channel%'"""
 
 
 update_port_channel_id = """UPDATE interfaces
-                            SET port_channel_id=%s 
-                            WHERE name=%s"""                             
+                            SET port_channel_id=%s
+                            WHERE name=%s"""
+                          
