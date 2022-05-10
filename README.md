@@ -2,10 +2,9 @@
 Python script and PostgreSQL
 
 1. Open terminal and navigate to project folder
-2. pip3 freeze > requirements.txt
-3. pip3 install -r requirements.txt
-4. docker-compose up
-5. python3 main.py
+2. pip3 install -r requirements.txt
+3. docker-compose up
+4. python3 main.py
 
 Check database:
 1. docker exec -it pythonzadanie_db_1 bash
