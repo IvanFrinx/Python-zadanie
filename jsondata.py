@@ -16,14 +16,14 @@ def extract_data(data):
     objects = list()
     for i, j in data[frinx][native]['interface'].items():
         for k in j:
-            attributes = list()
-            attributes.append(i+str(k['name']))
-            attributes.append(json.dumps(k))
+            attributes = dict()
+            attributes['name'] = i+str(k['name'])
+            attributes['config'] = json.dumps(k)
             if 'description' in k.keys():
-                attributes.append(k['description'])
+                attributes['description'] = k['description']
             if 'mtu' in k.keys():
-                attributes.append(k['mtu'])
-            obj = classdata.Interface(*attributes)
+                attributes['mtu'] = k['mtu']
+            obj = classdata.Interface(**attributes)
             objects.append(obj)
     return objects
 

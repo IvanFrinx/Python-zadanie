@@ -27,7 +27,7 @@ def main():
     # Updating port_channel_id column
     commandsSQL.update_col_port(cursor, links)
 
-    # Closing connection to database
+    # Commiting and closing connection to database
     commandsSQL.close_connection(connection, cursor)
 
 
