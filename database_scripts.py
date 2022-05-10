@@ -31,4 +31,3 @@ get_port_ids_str = """SELECT id, name
 update_port_channel_id = """UPDATE interfaces
                             SET port_channel_id=%s
                             WHERE name=%s"""
-                          

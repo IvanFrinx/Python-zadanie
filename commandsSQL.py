@@ -30,13 +30,16 @@ def skip_bdi_and_loops(objects):
     for obj in objects:
         if 'Loopback' not in obj.name and 'BDI' not in obj.name:
             objs.append(obj)
-    return objs        
+    return objs
+
+# Comment line 34 to include Loopbacks and BDIs
 
 
 def parse_data(objects, cursor):
-    objects = skip_bdi_and_loops(objects) # <== Comment line to include Loopbacks and BDIs
+    objects = skip_bdi_and_loops(objects)
     for obj in objects:
-        cursor.execute(database_scripts.insert_into_tables_values, obj.attributes())
+        cursor.execute(database_scripts.insert_into_tables_values,
+                       obj.attributes())
 
 
 def get_port_ids(cursor):
@@ -51,4 +54,3 @@ def get_port_ids(cursor):
 def update_col_port(cursor, links):
     for link, port in links.items():
         cursor.execute(database_scripts.update_port_channel_id, (port, link))
-        
