@@ -2,7 +2,7 @@ import jsondata
 import commandsSQL
 
 
-if __name__ == '__main__':
+def main():
     # Load json file, convert to dict type and store in data
     data = jsondata.load_json('configClear_v2.json')
 
@@ -29,3 +29,6 @@ if __name__ == '__main__':
 
     # Closing connection to database
     commandsSQL.close_connection(connection, cursor)
+
+if __name__ == '__main__':
+    main()    
