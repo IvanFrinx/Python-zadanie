@@ -13,10 +13,10 @@ if __name__ == '__main__':
     connection, cursor = commandsSQL.connect_to_db()
 
     # Creation of the table named interfaces in the database
-    commandsSQL.create_table(connection, cursor)
+    commandsSQL.create_table( cursor)
 
     # Parsing data into created table
-    commandsSQL.parse_data(objects, connection, cursor)
+    commandsSQL.parse_data(objects, cursor)
 
     # Getting ids from Port_channels
     ports_id = commandsSQL.get_port_ids(cursor)
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     links = jsondata.link_ports(objects, ports_id)
     
     # Updating port_channel_id column
-    commandsSQL.update_col_port(connection, cursor, links)
+    commandsSQL.update_col_port(cursor, links)
 
     # Closing connection to database
     commandsSQL.close_connection(connection, cursor)

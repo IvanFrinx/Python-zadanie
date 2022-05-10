@@ -1,8 +1,8 @@
-db = {"host": 'localhost',
-      "dbname": 'postgres',
-      "password": 'postgres',
-      "user": 'postgres',
-      "port": 5432}
+db = {'host': 'localhost',
+      'dbname': 'postgres',
+      'password': 'postgres',
+      'user': 'postgres',
+      'port': 5432}
 
 
 create_table_string = ''' CREATE TABLE IF NOT EXISTS interfaces (
@@ -28,6 +28,6 @@ get_port_ids_str =  """SELECT id, name
                        LIKE 'Port-channel%'"""    
 
 
-udpate_port_channel_id = """UPDATE interfaces
+update_port_channel_id = """UPDATE interfaces
                             SET port_channel_id=%s 
                             WHERE name=%s"""                               

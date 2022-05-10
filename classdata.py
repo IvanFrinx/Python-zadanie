@@ -1,8 +1,8 @@
 class Interface:
-    def __init__(self, name, description, config, mtu):
+    def __init__(self, name, config, description=None, mtu=None):
         self.name = name
-        self.description = description
         self.config = config
+        self.description = description
         self.mtu = mtu
 
     def attributes(self):
